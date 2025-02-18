@@ -23,10 +23,15 @@ public class NPC : MonoBehaviour
     };
     [SerializeField] private Sprite[] directionSprite;
     private SpriteRenderer spriteRenderer;
+    private TextMeshPro text;
+    private MovableObjectCount movableObject;
     private void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        text = GetComponentInChildren<TextMeshPro>();
+        movableObject = FindObjectOfType<MovableObjectCount>();
         targetPosition = transform.position;
+        text.gameObject.SetActive(false);
     }
     private void Update()
     {
@@ -41,15 +46,23 @@ public class NPC : MonoBehaviour
         {
             MoveToTarget();
         }
+        Request();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //대화 시작
+            text.gameObject.SetActive(true);
         }
 
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            text.gameObject.SetActive(false);
+        }
     }
     private void SetDirection()
     {
@@ -95,6 +108,14 @@ public class NPC : MonoBehaviour
                 spriteRenderer.sprite = directionSprite[directionIndex];
                 if (directionIndex == 2) spriteRenderer.flipX = false;
             }
+        }
+    }
+
+    private void Request()
+    {
+        if(movableObject.Count == 0)
+        {
+            text.text = "미니게임";
         }
     }
 }
