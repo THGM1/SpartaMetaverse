@@ -2273,7 +2273,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB3CC"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52be2ab4035af344e881839a33bbfee3, type: 2}
   m_sharedMaterial: {fileID: -6483061606523576308, guid: 52be2ab4035af344e881839a33bbfee3, type: 2}
@@ -4042,6 +4042,7 @@ GameObject:
   - component: {fileID: 1436488049}
   - component: {fileID: 1436488048}
   - component: {fileID: 1436488052}
+  - component: {fileID: 1436488053}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -4143,6 +4144,9 @@ MonoBehaviour:
   - {fileID: 21300004, guid: df894d170d5f44be293fae0ef08b055c, type: 3}
   - {fileID: 21300000, guid: df894d170d5f44be293fae0ef08b055c, type: 3}
   - {fileID: 21300002, guid: df894d170d5f44be293fae0ef08b055c, type: 3}
+  npcDialogues:
+  - "\uBBF8\uB2C8 \uAC8C\uC784\uC744 \uD558\uACE0 \uC2F6\uB098?"
+  - "\uB3CC\uC744 \uBC2D\uC5D0\uC11C \uCE58\uC6CC\uC8FC\uAC8C."
 --- !u!4 &1436488051
 Transform:
   m_ObjectHideFlags: 0
@@ -4152,7 +4156,7 @@ Transform:
   m_GameObject: {fileID: 1436488047}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.5, y: 13.5, z: -0.9097337}
+  m_LocalPosition: {x: 4.43, y: 0.99, z: -0.9097337}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4195,6 +4199,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.3640164
+--- !u!114 &1436488053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436488047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d376cfec7478d149b6329a42c70210c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 295506560}
+  index: 0
+  isTalking: 0
 --- !u!1 &1541863027
 GameObject:
   m_ObjectHideFlags: 0

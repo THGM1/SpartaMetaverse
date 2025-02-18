@@ -12,7 +12,6 @@ public class MovableObjectCount : MonoBehaviour
         if (collision.CompareTag("MovableObject"))
         {
             count++;
-            Debug.Log(count.ToString());
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

@@ -12,7 +12,6 @@ public class NPC : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     private float moveTimer = 0f;
     private bool isMoving = false;
-    private bool canMove = true;
     private Vector2 targetPosition;
     private Vector2[] directions = new Vector2[] 
     { 
@@ -25,16 +24,22 @@ public class NPC : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private TextMeshPro text;
     private MovableObjectCount movableObject;
+    public string[] npcDialogues =
+    {
+        "미니 게임을 하고 싶나?",
+        "돌을 밭에서 치워주게."
+    };
     private void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         text = GetComponentInChildren<TextMeshPro>();
         movableObject = FindObjectOfType<MovableObjectCount>();
         targetPosition = transform.position;
-        text.gameObject.SetActive(false);
     }
     private void Update()
     {
+        if (DialogueManager.instance.isTalking) return;
+
         moveTimer += Time.deltaTime;
         if (!isMoving && moveTimer >= moveDelay) // 이동 간격이 지났을 때만 이동 시도
         {
@@ -51,17 +56,18 @@ public class NPC : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !DialogueManager.instance.isTalking)
         {
-            text.gameObject.SetActive(true);
+            DialogueManager.instance.StartDialogue(npcDialogues, () => DialogueManager.instance.isTalking = false);
         }
 
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && DialogueManager.instance.isTalking)
         {
-            text.gameObject.SetActive(false);
+            DialogueManager.instance.EndDialogue();
         }
     }
     private void SetDirection()
@@ -118,4 +124,5 @@ public class NPC : MonoBehaviour
             text.text = "미니게임";
         }
     }
+
 }
