@@ -2747,6 +2747,8 @@ MonoBehaviour:
   cameraSpeed: 0.1
   playerXPos: 0
   playerYPos: 0
+  minPos: {x: -15, y: -14}
+  maxPos: {x: 18, y: 10}
 --- !u!1 &653446886
 GameObject:
   m_ObjectHideFlags: 0
