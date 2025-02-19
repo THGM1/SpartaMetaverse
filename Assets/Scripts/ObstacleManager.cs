@@ -9,6 +9,7 @@ public class ObstacleManager : MonoBehaviour
     [SerializeField] private float spawnInterval = 2f; // 생성 간격
     [SerializeField] private float widthPadding; // 장애물 간격
     [SerializeField] private Transform spawnPoint; // 생성 위치
+    [SerializeField] private GameObject tilemap;
     private Vector3 lastPosition; // 마지막으로 생성된 장애물 위치
     private Queue<GameObject> activeObstacles = new Queue<GameObject>(); // 생성된 장애물
     private int maxObstacles = 7;
@@ -25,7 +26,7 @@ public class ObstacleManager : MonoBehaviour
     public void SetRandomPosition()
     {
         if (obstacles.Length == 0 || count >= maxObstacles) return;
-        widthPadding =Random.Range(3f, 8f);
+        widthPadding =Random.Range(5f, 8f);
         int randomIndex = Random.Range(0, obstacles.Length);
         GameObject obstacle = Instantiate(obstacles[randomIndex]);
 
@@ -33,6 +34,7 @@ public class ObstacleManager : MonoBehaviour
         obstacle.transform.position = lastPosition;
         activeObstacles.Enqueue(obstacle);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Obstacle"))
@@ -41,6 +43,12 @@ public class ObstacleManager : MonoBehaviour
             activeObstacles.Dequeue();
             SetRandomPosition();
 
+        }
+        else if (collision.CompareTag("Ground"))
+        {
+            Vector3 position = collision.transform.position;
+            Vector3 newPosition = position += new Vector3(48f, 0, 0);
+            collision.transform.position = newPosition;
         }
     }
 
