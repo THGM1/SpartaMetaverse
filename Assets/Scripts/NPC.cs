@@ -24,11 +24,7 @@ public class NPC : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private TextMeshPro text;
     private MovableObjectCount movableObject;
-    public string[] npcDialogues =
-    {
-        "미니 게임을 하고 싶나?",
-        "돌을 밭에서 치워주게."
-    };
+    public string[] npcDialogues;
     private void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -121,7 +117,7 @@ public class NPC : MonoBehaviour
     {
         if(movableObject.Count == 0)
         {
-            text.text = "미니게임";
+            //미니게임 활성화
         }
     }
 
