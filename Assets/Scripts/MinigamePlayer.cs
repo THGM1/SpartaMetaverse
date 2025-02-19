@@ -12,7 +12,8 @@ public class MinigamePlayer : MonoBehaviour
     public bool isDead = false;
     float deathCooldown = 0f;
     bool isJump = false;
-
+    public int jumpCount = 0;
+    bool isGrounded = true;
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -34,10 +35,14 @@ public class MinigamePlayer : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+            
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && jumpCount < 2)
             {
+                rb.velocity = Vector3.zero;
+                jumpCount++;
                 isJump = true;
             }
+
         }
     }
     private void FixedUpdate()
@@ -46,6 +51,7 @@ public class MinigamePlayer : MonoBehaviour
 
         Vector3 velocity = rb.velocity;
         velocity.x = forwardSpeed;
+
         if (isJump)
         {
             velocity.y += jumpForce;
@@ -54,6 +60,7 @@ public class MinigamePlayer : MonoBehaviour
 
         rb.velocity = velocity;
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
@@ -61,6 +68,10 @@ public class MinigamePlayer : MonoBehaviour
             animator.SetBool("IsDie", true);
             isDead = true;
             deathCooldown = 1f;
+        }
+        else if (collision.gameObject.CompareTag("Ground"))
+        {
+            jumpCount = 0;
         }
     }
 }
