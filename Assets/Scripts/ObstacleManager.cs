@@ -20,8 +20,9 @@ public class ObstacleManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(spawnInterval);
             SetRandomPosition();
+            yield return new WaitForSeconds(spawnInterval);
+
         }
     }
     public void SetRandomPosition()

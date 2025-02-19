@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -28,11 +29,10 @@ public class CameraController : MonoBehaviour
     }
     private void CameraMove()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 move = new Vector3(horizontal * cameraSpeed * Time.deltaTime, vertical * cameraSpeed * Time.deltaTime, 0f);
-        this.transform.Translate(move);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector3 targetPosition = player.transform.position;
+        targetPosition.z = -1;
+        transform.position = Vector3.Lerp(transform.position, targetPosition, cameraSpeed * Time.deltaTime);
     }
 
     private void LimitCamera()
@@ -45,7 +45,9 @@ public class CameraController : MonoBehaviour
         position.x = Mathf.Clamp(position.x, playerPos.x - playerXPos, playerPos.x + playerXPos);
         position.y = Mathf.Clamp(position.y, playerPos.y - playerYPos, playerPos.y + playerYPos);
         //¸Ê Á¦ÇÑ
-        position.x = Mathf.Clamp(position.x, minPos.x, maxPos.x);
+        if (SceneManager.GetActiveScene().name == "MainScene")
+            position.x = Mathf.Clamp(position.x, minPos.x, maxPos.x);
+        
         position.y = Mathf.Clamp(position.y, minPos.y, maxPos.y);
         transform.position = position;
     }

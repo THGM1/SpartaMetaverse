@@ -36,7 +36,6 @@ public class MinigamePlayer : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("มกวม");
                 isJump = true;
             }
         }
