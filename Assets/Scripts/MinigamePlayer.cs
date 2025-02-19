@@ -63,4 +63,12 @@ public class MinigamePlayer : MonoBehaviour
             deathCooldown = 1f;
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Obstacle"))
+        {
+            Debug.Log("socred: " + collision.gameObject.name + " socre: " + GameManager.instance.score);
+            GameManager.instance.score++;
+        }
+    }
 }
