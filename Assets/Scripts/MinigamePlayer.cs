@@ -50,7 +50,7 @@ public class MinigamePlayer : MonoBehaviour
         if (isDead) return;
 
         Vector3 velocity = rb.velocity;
-        velocity.x = forwardSpeed;
+        velocity.x = forwardSpeed * GameManager.instance.level;
 
         if (isJump)
         {
@@ -68,6 +68,7 @@ public class MinigamePlayer : MonoBehaviour
             animator.SetBool("IsDie", true);
             isDead = true;
             deathCooldown = 1f;
+            GameManager.instance.GameOver();
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
