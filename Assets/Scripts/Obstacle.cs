@@ -9,7 +9,8 @@ public class Obstacle : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            //GameManager.instance.score++;
+            GameManager.instance.score++;
+            Debug.Log(collision.name + " score: " + GameManager.instance.score);
         }
     }
 
