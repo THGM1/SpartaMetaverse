@@ -27,7 +27,7 @@ public class NPC : MonoBehaviour
     private TextMeshPro text;
     private MovableObjectCount movableObject;
     string[] npcDialogues;
-    string[] startDialgoues = { "미니 게임을 하고 싶나?", "돌을 밭에서 모두 치워주게." };
+    string[] startDialgoues = { "미니 게임을 하고 싶나?", "돌을 밭에서 모두 치워주게.","클릭으로 돌을 들 수 있어." };
     string[] clearDialogues = { "고맙네", "상자를 통해 미니게임을 시작할 수 있어." };
 
     private void Start()
