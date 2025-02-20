@@ -18,11 +18,7 @@ public class DialogueManager : MonoBehaviour
     {
         instance = this;
     }
-    private void Start()
-    {
-        // = GetComponentInChildren<TextMeshPro>();
-        //text.gameObject.SetActive(false);
-    }
+
     private void Update()
     {
         if (text == null) return;
@@ -33,7 +29,6 @@ public class DialogueManager : MonoBehaviour
     }
     public void StartDialogue(string[] newDialogues, Action onEnd = null)
     {
-        Debug.Log(text.name);
         isTalking = true;
         dialogues = newDialogues;
         index = 0;
