@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     {
         panel.SetActive(active);
         bestScoreTxt.gameObject.SetActive(active);
+        DisplayBestScore();
         if (active)
         {
             currentScoreTxt.transform.localPosition = new Vector3(117f, -70f, 0);
@@ -46,6 +47,7 @@ public class UIManager : MonoBehaviour
         gameOverTxt.gameObject.SetActive(true);
         restartBtn.gameObject .SetActive(true);
         startBtn.gameObject .SetActive(false);
+
     }
 
     public void Restart()
@@ -56,11 +58,11 @@ public class UIManager : MonoBehaviour
     public void DisplayScore()
     {
         currentScoreTxt.gameObject.SetActive(true);
-        currentScoreTxt.text = "현재 점수: " + GameManager.instance.score.ToString();
+        currentScoreTxt.text = "점수: " + GameManager.instance.score.ToString();
     }
 
     public void DisplayBestScore()
     {
-        
+        bestScoreTxt.text = "최고 점수: " + GameManager.instance.bestScore.ToString();  
     }
 }

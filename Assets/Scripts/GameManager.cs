@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public float level = 1;
-
+    private const string BestScoreKey = "BestScore";
     public int score = 0;
+    public int bestScore = 0;
     private void Awake()
     {
         instance = this;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 0f;
+        bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
     }
     private void Update()
     {
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0f;
+        UpdateScore();
         UIManager.instance.GameOver();
     }
 
@@ -54,5 +57,14 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         level = 1;
+    }
+
+    void UpdateScore()
+    {
+        if(bestScore < score)
+        {
+            bestScore = score;
+            PlayerPrefs.SetInt(BestScoreKey, bestScore);
+        }
     }
 }

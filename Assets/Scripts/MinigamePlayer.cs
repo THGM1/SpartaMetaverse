@@ -27,14 +27,10 @@ public class MinigamePlayer : MonoBehaviour
     {
         if (isDead)
         {
-            if (deathCooldown < 0f)
-            {
-                if (Input.anyKeyDown)
-                {
-                    //Àç½ÃÀÛ
-                }
-            }
-            else deathCooldown -= Time.deltaTime;
+            //if (deathCooldown < 0f)
+            //{
+            //}
+            //else deathCooldown -= Time.deltaTime;
         }
         else
         {
@@ -70,13 +66,17 @@ public class MinigamePlayer : MonoBehaviour
         {
             animator.SetBool("IsDie", true);
             isDead = true;
-            deathCooldown = 1f;
-            GameManager.instance.GameOver();
+
+            Invoke("GameOver", .3f);
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
             jumpCount = 0;
         }
+    }
+    private void GameOver()
+    {
+        GameManager.instance.GameOver();
     }
 
     public void Init()
