@@ -33,4 +33,14 @@ public class GameManager : MonoBehaviour
         UIManager.instance.GameOver();
     }
 
+    public void IncreaceScore()
+    {
+        score++;
+        ScoreSpeed();
+    }
+    public void ScoreSpeed()
+    {
+        if (score % 10 == 0) level += .2f;
+    }
+
 }
