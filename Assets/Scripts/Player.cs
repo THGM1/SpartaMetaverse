@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         animator.SetFloat("Vertical", isMoving ? vertical : 0);
 
         transform.position += new Vector3(horizontal, vertical) * Time.deltaTime;
-        Debug.Log(horizontal + ", vertical: " + vertical + " isMoving: " + isMoving);
+        
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
