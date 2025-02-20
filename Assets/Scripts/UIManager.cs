@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI bestScoreTxt;
     [SerializeField] TextMeshProUGUI currentScoreTxt;
     [SerializeField] TextMeshProUGUI gameOverTxt;
+    [SerializeField] TextMeshProUGUI infoTxt;
     [SerializeField] private Button restartBtn;
     [SerializeField] private Button startBtn;
 
@@ -48,6 +49,7 @@ public class UIManager : MonoBehaviour
         gameOverTxt.gameObject.SetActive(true);
         restartBtn.gameObject .SetActive(true);
         startBtn.gameObject .SetActive(false);
+        infoTxt.gameObject .SetActive(false);
 
     }
 

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private const string BestScoreKey = "BestScore";
     public int score = 0;
     public int bestScore = 0;
+    public bool isPause = false;
     private void Awake()
     {
         instance = this;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 0f;
+        isPause = true;
         bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
     }
     private void Update()
@@ -28,11 +30,13 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         Time.timeScale = 1f;
+        isPause = false;
     }
 
     public void GameOver()
     {
         Time.timeScale = 0f;
+        isPause = true;
         UpdateScore();
         UIManager.instance.GameOver();
     }
@@ -50,6 +54,7 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f;
+        isPause = false;
         Init();
         ObstacleManager.instance.Init();
         MinigamePlayer.instance.Init();

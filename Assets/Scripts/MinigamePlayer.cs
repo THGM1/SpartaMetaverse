@@ -27,15 +27,12 @@ public class MinigamePlayer : MonoBehaviour
     {
         if (isDead)
         {
-            //if (deathCooldown < 0f)
-            //{
-            //}
-            //else deathCooldown -= Time.deltaTime;
+
         }
         else
         {
             
-            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && jumpCount < 2)
+            if (!GameManager.instance.isPause && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && jumpCount < 2)
             {
                 rb.velocity = Vector3.zero;
                 jumpCount++;
