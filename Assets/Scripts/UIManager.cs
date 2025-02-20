@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -64,5 +65,10 @@ public class UIManager : MonoBehaviour
     public void DisplayBestScore()
     {
         bestScoreTxt.text = "최고 점수: " + GameManager.instance.bestScore.ToString();  
+    }
+
+    public void BackToMain()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }

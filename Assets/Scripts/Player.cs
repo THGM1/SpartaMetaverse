@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private bool isMoving;
     private Vector2 lastDirection = Vector2.down;
+    private GameObject originalParent;
 
     private void Start()
     {
@@ -57,7 +58,9 @@ public class Player : MonoBehaviour
         if (nearbyObject != null)
         {
             carriedObject = nearbyObject;
+            originalParent = carriedObject.transform.parent.gameObject;
             carriedObject.transform.position = carryPosition.position;
+
             carriedObject.transform.SetParent(carryPosition);
             carriedObject.GetComponent<Rigidbody2D>().isKinematic = true;
             nearbyObject = null;
@@ -79,7 +82,9 @@ public class Player : MonoBehaviour
         {
             carriedObject.transform.position = transform.position;
         }
+        carriedObject.transform.SetParent(originalParent.transform);
         carriedObject = null;
+
     }
 
     private void HandleObjectPickup()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,7 +22,8 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        UIManager.instance.DisplayScore();
+        if(SceneManager.GetActiveScene().name == "MainScene") Time.timeScale = 1f;
+        else UIManager.instance.DisplayScore();
     }
     public void StartGame()
     {

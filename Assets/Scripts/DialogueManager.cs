@@ -13,16 +13,19 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]private int index;
     private Action onDialogueEnd;
     public bool isTalking = false;
+    public bool isEnd = true;
     private void Awake()
     {
         instance = this;
     }
     private void Start()
     {
-        text.gameObject.SetActive(false);
+        // = GetComponentInChildren<TextMeshPro>();
+        //text.gameObject.SetActive(false);
     }
     private void Update()
     {
+        if (text == null) return;
         if(text.IsActive() && Input.GetMouseButtonDown(0))
         {
             ShowNextDialogue();
@@ -30,10 +33,11 @@ public class DialogueManager : MonoBehaviour
     }
     public void StartDialogue(string[] newDialogues, Action onEnd = null)
     {
+        Debug.Log(text.name);
         isTalking = true;
         dialogues = newDialogues;
         index = 0;
-        onDialogueEnd = onEnd;
+        onDialogueEnd = onEnd;  
         text.gameObject.SetActive(true);
         ShowNextDialogue();
     }
@@ -51,9 +55,14 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
+        isEnd = true;
         isTalking = false;
         text.gameObject.SetActive(false);
         index = 0;
         onDialogueEnd?.Invoke();
     }
+    public void SetText(TextMeshPro newText)
+    {
+
+    text = newText; }
 }

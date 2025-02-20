@@ -12,6 +12,8 @@ public class NPC : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     private float moveTimer = 0f;
     private bool isMoving = false;
+    private bool isClear = false;
+    public bool IsClear { get { return isClear; } }
     private Vector2 targetPosition;
     private Vector2[] directions = new Vector2[] 
     { 
@@ -24,13 +26,17 @@ public class NPC : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private TextMeshPro text;
     private MovableObjectCount movableObject;
-    public string[] npcDialogues;
+    string[] npcDialogues;
+    string[] startDialgoues = { "미니 게임을 하고 싶나?", "돌을 밭에서 모두 치워주게." };
+    string[] clearDialogues = { "고맙네", "상자를 통해 미니게임을 시작할 수 있어." };
+
     private void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         text = GetComponentInChildren<TextMeshPro>();
         movableObject = FindObjectOfType<MovableObjectCount>();
         targetPosition = transform.position;
+        npcDialogues = startDialgoues;
     }
     private void Update()
     {
@@ -48,12 +54,15 @@ public class NPC : MonoBehaviour
             MoveToTarget();
         }
         Request();
+        if (!isClear) npcDialogues = startDialgoues;
+        else npcDialogues = clearDialogues;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && !DialogueManager.instance.isTalking)
         {
+            DialogueManager.instance.SetText(text);
             DialogueManager.instance.StartDialogue(npcDialogues, () => DialogueManager.instance.isTalking = false);
         }
 
@@ -115,10 +124,13 @@ public class NPC : MonoBehaviour
 
     private void Request()
     {
-        if(movableObject.Count == 0)
+        if (movableObject.Count == 0)
         {
             //미니게임 활성화
+            npcDialogues = clearDialogues;
+            isClear = true;
         }
+        else isClear = false;
     }
 
 }
