@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    private float time;
+
     public float level = 1;
 
     public int score = 0;
@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        time += Time.deltaTime;
         UIManager.instance.DisplayScore();
     }
     public void StartGame()
@@ -33,7 +32,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.GameOver();
     }
 
-    public void IncreaceScore()
+    public void IncreaseScore()
     {
         score++;
         ScoreSpeed();
@@ -43,4 +42,17 @@ public class GameManager : MonoBehaviour
         if (score % 10 == 0) level += .2f;
     }
 
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+        Init();
+        ObstacleManager.instance.Init();
+        MinigamePlayer.instance.Init();
+    }
+
+    public void Init()
+    {
+        score = 0;
+        level = 1;
+    }
 }

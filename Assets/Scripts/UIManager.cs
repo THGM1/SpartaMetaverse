@@ -2,45 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject panel;
-    [SerializeField] TextMeshProUGUI bestScore;
-    [SerializeField] TextMeshProUGUI currentScore;
+    [SerializeField] TextMeshProUGUI bestScoreTxt;
+    [SerializeField] TextMeshProUGUI currentScoreTxt;
+    [SerializeField] TextMeshProUGUI gameOverTxt;
+    [SerializeField] private Button restartBtn;
+    [SerializeField] private Button startBtn;
+
     public static UIManager instance;
-    private int scoreTxt;
+
     private void Start()
     {
         instance = this;
-        panel.SetActive(true);
-        bestScore.gameObject.SetActive(true);
-        currentScore.gameObject.SetActive(false);
+        PanelActive(true);
+        gameOverTxt.gameObject.SetActive(false);
+        restartBtn.gameObject.SetActive(false);
+        startBtn.gameObject.SetActive(true);
     }
-    public void panelActive(bool active)
+    public void PanelActive(bool active)
     {
         panel.SetActive(active);
-        bestScore.gameObject.SetActive(active);
-        currentScore.gameObject.SetActive(active);
+        bestScoreTxt.gameObject.SetActive(active);
+        if (active)
+        {
+            currentScoreTxt.transform.localPosition = new Vector3(117f, -70f, 0);
+        }
+        else currentScoreTxt.transform.localPosition = new Vector3(-239.4305f, 179f, 0);
     }
 
     public void StartGame()
     {
         GameManager.instance.StartGame();
-        panel.SetActive(false);
-        bestScore.gameObject.SetActive(false);
-        currentScore.gameObject.SetActive(true);
+        PanelActive(false);
     }
 
     public void GameOver()
     {
-        panelActive(true);
+        PanelActive(true);
+        gameOverTxt.gameObject.SetActive(true);
+        restartBtn.gameObject .SetActive(true);
+        startBtn.gameObject .SetActive(false);
     }
 
+    public void Restart()
+    {
+        GameManager.instance.Restart();
+        PanelActive(false);
+    }
     public void DisplayScore()
     {
-        currentScore.gameObject.SetActive(true);
-        currentScore.text = "현재 점수: " + GameManager.instance.score.ToString();
+        currentScoreTxt.gameObject.SetActive(true);
+        currentScoreTxt.text = "현재 점수: " + GameManager.instance.score.ToString();
     }
 
+    public void DisplayBestScore()
+    {
+        
+    }
 }

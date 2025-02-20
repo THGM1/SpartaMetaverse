@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class MinigamePlayer : MonoBehaviour
 {
+    public static MinigamePlayer instance;
     Animator animator = null;
     Rigidbody2D rb = null;
-
+    private Vector3 startPosition;
     public float jumpForce = 5f;
     public float forwardSpeed = 3f;
     public bool isDead = false;
@@ -16,6 +17,8 @@ public class MinigamePlayer : MonoBehaviour
     bool isGrounded = true;
     private void Start()
     {
+        instance = this;
+        startPosition = transform.position;
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         animator.SetBool("IsDie", false);
@@ -74,5 +77,15 @@ public class MinigamePlayer : MonoBehaviour
         {
             jumpCount = 0;
         }
+    }
+
+    public void Init()
+    {
+        transform.position = startPosition;
+        rb.velocity = Vector2.zero;
+        isDead = false;
+        jumpCount = 0;
+        isJump = false;
+        animator.SetBool("IsDie", false);
     }
 }

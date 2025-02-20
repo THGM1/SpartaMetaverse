@@ -9,13 +9,16 @@ public class ObstacleManager : MonoBehaviour
     [SerializeField] private float spawnInterval = 2f; // 생성 간격
     [SerializeField] private float widthPadding; // 장애물 간격
     [SerializeField] private Transform spawnPoint; // 생성 위치
-    [SerializeField] private GameObject tilemap;
+    [SerializeField] private GameObject tilemap1;
+    [SerializeField] private GameObject tilemap2;
+    public static ObstacleManager instance;
     private Vector3 lastPosition; // 마지막으로 생성된 장애물 위치
     private Queue<GameObject> activeObstacles = new Queue<GameObject>(); // 생성된 장애물
     private int maxObstacles = 7;
     public int count = 0;
     private void Start()
     {
+        instance = this;    
         lastPosition = spawnPoint.position;
         for(int i = 0; i < maxObstacles; i++)
         {
@@ -52,5 +55,21 @@ public class ObstacleManager : MonoBehaviour
         }
     }
 
+    public void Init()
+    {
+        while (activeObstacles.Count > 0)
+        {
+            Destroy(activeObstacles.Dequeue());
+        }
+
+        lastPosition = spawnPoint.position;
+        count = 0;
+        for (int i = 0; i < maxObstacles; i++)
+        {
+            SetRandomPosition();
+        }
+        tilemap1.transform.position = new Vector3(0, 0);
+        tilemap2.transform.position = new Vector3(24, 0);
+    }
 
 }

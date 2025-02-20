@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        LimitCamera();
     }
     private void Start()
     {
@@ -24,8 +25,19 @@ public class CameraController : MonoBehaviour
     }
     private void Update()
     {
-        CameraMove();
-        LimitCamera();
+        if (Time.timeScale > 0)
+        {
+            CameraMove();
+            LimitCamera();
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (Time.timeScale == 0)
+        {
+            CameraMove();
+            LimitCamera();
+        }
     }
     private void CameraMove()
     {
