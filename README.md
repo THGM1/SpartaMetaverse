@@ -1,4 +1,4 @@
-# SprataMetaverse
+# SpartaMetaverse
 ---
 
 ## 게임 설명
